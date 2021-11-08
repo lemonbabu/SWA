@@ -2,4 +2,13 @@
     <string name="app_name">SHIB Whale Alerts</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="logo">Logo</string>
+    <string name="header_background">Header background</string>
+    <string name="latest_transactions">Latest Transactions</string>
+    <string name="back_button">back button</string>
+    <string name="_50_secs_ago">50 secs ago</string>
+    <string name="txId">0xb4a54af9fe087d8bcbca6f60f52d6e3bb12ee34f3d820e4ffcd63</string>
+    <string name="price">0.013245</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
 </resources>
