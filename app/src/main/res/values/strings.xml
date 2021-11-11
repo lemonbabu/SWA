@@ -7,8 +7,9 @@
     <string name="latest_transactions">Latest Transactions</string>
     <string name="back_button">back button</string>
     <string name="_50_secs_ago">50 secs ago</string>
-    <string name="txId">0xb4a54af9fe087d8bcbca6f60f52d6e3bb12ee34f3d820e4ffcd63</string>
+    <string name="txId">0xb4a54af9fe087d8bcb3ca6f60f52d6e3bb12ee34f3d820e4ffc3cd63</string>
     <string name="price">0.013245</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
+    <string name="transaction_hash">Transaction Hash: 0xb4a54af9fe087d8bce32fs526s36g54s43523sts52525fsf32424264bca6f60f52d6e3bb12ee34f3d820e4ff5cd63</string>
 </resources>

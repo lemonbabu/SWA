@@ -2,8 +2,13 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="110dp"
-    android:background="@drawable/bg_list_item">
+    android:layout_height="125dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/Theme.AppCompat.Light"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="1dp"
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,6 +45,8 @@
                     android:layout_weight="65"
                     android:layout_gravity="center|start"
                     android:layout_marginEnd="5dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/black"
                     android:text="@string/txId"/>
 
@@ -51,6 +58,8 @@
                     android:paddingTop="3dp"
                     android:paddingStart="5dp"
                     android:paddingEnd="0dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textAlignment="center"
                     android:background="@drawable/bg_price_tag"
                     android:text="@string/price"/>
@@ -65,6 +74,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -78,12 +88,15 @@
                     android:id="@+id/tvAddressFrom"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:text="@string/txId"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -97,6 +110,8 @@
                     android:id="@+id/tvAddressTo"
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:text="@string/txId"/>
             </LinearLayout>
 
