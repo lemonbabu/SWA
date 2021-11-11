@@ -56,7 +56,7 @@
                     android:layout_height="25dp"
                     android:layout_weight="35"
                     android:paddingTop="3dp"
-                    android:paddingStart="5dp"
+                    android:paddingStart="15dp"
                     android:paddingEnd="0dp"
                     android:maxLines="1"
                     android:ellipsize="end"

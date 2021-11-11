@@ -1,7 +1,6 @@
 package com.tbl.shibwhalealerts.view.ui.fragment
 
 import android.os.Bundle
-import android.text.Html
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -24,7 +23,6 @@ import com.tbl.shibwhalealerts.gone
 import com.tbl.shibwhalealerts.viewModel.DashboardViewModel
 import com.tbl.shibwhalealerts.visible
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_details.*
 
 
 class DashboardFragment : Fragment(), TxAdapter.OnTxClickListener {

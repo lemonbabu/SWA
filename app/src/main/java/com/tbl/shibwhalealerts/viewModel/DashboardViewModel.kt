@@ -8,7 +8,6 @@ import com.tbl.shibwhalealerts.service.api.TxApiModel
 import com.tbl.shibwhalealerts.service.api.TxInterface
 import com.tbl.shibwhalealerts.service.model.data.TxApiResponse
 import com.tbl.shibwhalealerts.service.model.data.TxData
-import com.tbl.shibwhalealerts.view.adapter.TxAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

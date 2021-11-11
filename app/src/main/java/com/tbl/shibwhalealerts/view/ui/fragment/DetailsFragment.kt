@@ -1,22 +1,19 @@
 package com.tbl.shibwhalealerts.view.ui.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Html
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.tbl.shibwhalealerts.R
 import com.tbl.shibwhalealerts.viewModel.ItemViewModel
 import kotlinx.android.synthetic.main.fragment_details.*
-import kotlinx.android.synthetic.main.fragment_details.view.tvTxHas
 import androidx.lifecycle.ViewModelProviders
 import com.tbl.shibwhalealerts.service.model.data.TxData
+import com.tbl.shibwhalealerts.service.model.data.TxDataModel
 
 
 class DetailsFragment : Fragment() {
@@ -38,36 +35,22 @@ class DetailsFragment : Fragment() {
         viewModel = ViewModelProviders.of(requireActivity())[ItemViewModel::class.java]
         viewModel.getSelectItem().observe(viewLifecycleOwner,
             Observer<TxData?> { txData ->
-                var txt = "<font color=#3498DB>Transaction Hash: </font>" + txData.txHas
-                tvTxHas.text = Html.fromHtml(txt)
 
-                txt = "<font color=#3498DB>Status: </font>" + txData.status
-                tvStatus.text = Html.fromHtml(txt)
+                val obj = TxDataModel(txData)
 
-                txt = "<font color=#3498DB>Block: </font>" + txData.blockNo
-                tvBlockNo.text = Html.fromHtml(txt)
-
-                txt = "<font color=#3498DB>TimeStamp: </font>" + txData.time
-                tvTimeStamp.text = Html.fromHtml(txt)
-
-                txt = "<font color=#3498DB>From: </font>" + txData.addressFrom
-                tvFrom.text = Html.fromHtml(txt)
-
-                txt = "<font color=#3498DB>To: </font>" + txData.addressTO
-                tvTo.text = Html.fromHtml(txt)
-
-                txt = "<font color=#3498DB>Value: </font>" + txData.value
-                tvValue.text = Html.fromHtml(txt)
-
-                txt = "<font color=#3498DB>Gas Limit: </font>" + txData.gas
-                tvGasLimit.text = Html.fromHtml(txt)
-
-                txt = "<font color=#3498DB>Gas Used by Txn: </font>" + txData.gasUsed
-                tvGasUsed.text = Html.fromHtml(txt)
-
-                txt = "<font color=#3498DB>Nonce: </font>" + txData.nonce
-                tvNonce.text = Html.fromHtml(txt)
-
+                tvTxHas.text = Html.fromHtml(obj.getTxHas())
+                tvStatus.text = Html.fromHtml(obj.getStatus())
+                tvBlockNo.text = Html.fromHtml(obj.getBlockNo())
+                tvTimeStamp.text = Html.fromHtml(obj.getTime())
+                tvFrom.text = Html.fromHtml(obj.getAddressFrom())
+                tvTo.text = Html.fromHtml(obj.getAddressTo())
+                tvValue.text = Html.fromHtml(obj.getValue())
+                tvGasPrice.text = Html.fromHtml(obj.getGasPrice())
+                tvGasLimit.text = Html.fromHtml(obj.getGasLimit())
+                tvGasUsed.text = Html.fromHtml(obj.getGasUsedByTx())
+                tvTxFee.text = Html.fromHtml(obj.getTxFee())
+                tvNonce.text = Html.fromHtml(obj.getNonce())
+                tvInputData.text = Html.fromHtml(obj.getInput())
 
             })
     }

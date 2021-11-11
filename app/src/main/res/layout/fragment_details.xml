@@ -29,8 +29,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
 
             <View
@@ -47,8 +45,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
 
             <View
@@ -65,8 +61,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text=""/>
 
             <View
@@ -83,8 +77,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text=""/>
 
             <View
@@ -92,7 +84,7 @@
                 android:layout_height="2dp"
                 android:layout_marginStart="-20dp"
                 android:layout_marginEnd="-20dp"
-                android:background="@color/white_lite"/>
+                android:background="@color/white_lite" />
 
             <TextView
                 android:id="@+id/tvFrom"
@@ -101,15 +93,14 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginStart="-20dp"
                 android:layout_marginEnd="-20dp"
-                android:background="@color/white_lite"/>
+                android:background="@color/white_lite" />
 
             <TextView
                 android:id="@+id/tvTo"
@@ -118,8 +109,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
             <View
                 android:layout_width="match_parent"
@@ -135,8 +124,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
 
             <View
@@ -153,8 +140,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
 
             <View
@@ -171,27 +156,8 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="-20dp"
-                android:layout_marginEnd="-20dp"
-                android:background="@color/white_lite"/>
-
-            <TextView
-                android:id="@+id/tvTxType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:text="@string/transaction_hash"/>
 
             <View
                 android:layout_width="match_parent"
@@ -207,8 +173,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
 
 
@@ -226,10 +190,9 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
 
+            <!--
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -244,8 +207,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
 
             <View
@@ -262,8 +223,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
 
             <View
@@ -280,8 +239,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
 
             <View
@@ -298,8 +255,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
 
 
@@ -317,9 +272,25 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="-20dp"
+                android:layout_marginEnd="-20dp"
+                android:background="@color/white_lite"/>
+
+            <TextView
+                android:id="@+id/tvTxType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:text="@string/transaction_hash"/>
+
+            -->
 
             <View
                 android:layout_width="match_parent"
@@ -335,8 +306,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
 
             <View
@@ -353,8 +322,6 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:maxLines="2"
-                android:ellipsize="end"
                 android:text="@string/transaction_hash"/>
 
         </LinearLayout>

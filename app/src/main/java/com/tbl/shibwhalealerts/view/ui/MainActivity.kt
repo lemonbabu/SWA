@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.tbl.shibwhalealerts.R
-import com.tbl.shibwhalealerts.service.model.data.TxData
 import com.tbl.shibwhalealerts.view.ui.fragment.DashboardFragment
 import com.tbl.shibwhalealerts.view.ui.fragment.DetailsFragment
 import com.tbl.shibwhalealerts.viewModel.FragmentCommunication
@@ -78,7 +77,7 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setTitle("Closing Activity")
             .setMessage("Are you sure? Do you want to exit this app?")
-            .setPositiveButton("Yes") { dialogInterface: DialogInterface, i: Int ->
+            .setPositiveButton("Yes") { _: DialogInterface, _: Int ->
                 deleteAppData()
                 super.onBackPressed() }
             .setNegativeButton("No", null)
