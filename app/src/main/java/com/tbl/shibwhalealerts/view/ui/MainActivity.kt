@@ -1,63 +1,59 @@
 package com.tbl.shibwhalealerts.view.ui
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.tbl.shibwhalealerts.R
 import com.tbl.shibwhalealerts.view.ui.fragment.DashboardFragment
 import com.tbl.shibwhalealerts.view.ui.fragment.DetailsFragment
 import com.tbl.shibwhalealerts.viewModel.FragmentCommunication
+import com.tbl.shibwhalealerts.viewModel.MainModelView
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity(), FragmentCommunication {
 
-    private var backPress: Boolean = false
+    private lateinit var viewModel: MainModelView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        gotoDashboard()
-        btnBack.setOnClickListener { gotoDashboard() }
+        viewModel = ViewModelProvider(this)[MainModelView::class.java]
+        //Fragment set Observer
+        viewModel.getState().observe(this, {
+            val fragmentManager = supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+            fragmentTransaction.replace(R.id.fcvMain, it)
+            fragmentTransaction.commit()
+        })
+
+        viewModel.getTitle().observe(this, {
+            tv_header_title.text = it
+        })
+
+        viewModel.getBack().observe(this, {
+            if(it == false)
+                btnBack.visibility = View.INVISIBLE
+            else
+                btnBack.visibility = View.VISIBLE
+        })
+
+        btnBack.setOnClickListener {
+            viewModel.setState(DashboardFragment())
+            viewModel.setBack(false)
+            viewModel.setTitle("Latest Transactions")
+        }
     }
-
-    private fun replaceFragment(fragment: Fragment) {
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fcvMain, fragment)
-        fragmentTransaction.commit()
-    }
-
-
-    @SuppressLint("SetTextI18n")
-    private fun gotoDashboard(){
-        tv_header_title.text = "Latest Transactions"
-        replaceFragment(DashboardFragment())
-        btnBack.visibility = View.INVISIBLE
-        backPress = false
-    }
-
-    @SuppressLint("SetTextI18n")
-    private fun gotoDetails(){
-        btnBack.visibility = View.VISIBLE
-        backPress = true
-        tv_header_title.text = "Transaction Details"
-
-    }
-
-
 
     override fun passData() {
-        gotoDetails()
-        replaceFragment(DetailsFragment())
-
+        viewModel.setState(DetailsFragment())
+        viewModel.setTitle("Transaction Details")
+        viewModel.setBack(true)
     }
-
 
     // Clear local data
     private fun deleteAppData() {
@@ -69,8 +65,10 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
     }
 
     override fun onBackPressed() {
-        if(backPress){
-            gotoDashboard()
+        if(viewModel.back.value == true){
+            viewModel.setState(DashboardFragment())
+            viewModel.setBack(false)
+            viewModel.setTitle("Latest Transactions")
             return
         }
         AlertDialog.Builder(this)

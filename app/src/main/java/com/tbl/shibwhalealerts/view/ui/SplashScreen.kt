@@ -1,5 +1,6 @@
 package com.tbl.shibwhalealerts.view.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.os.Handler
 import com.tbl.shibwhalealerts.R
 import kotlinx.android.synthetic.main.activity_splash_screen.*
 
+@SuppressLint("CustomSplashScreen")
 class SplashScreen : AppCompatActivity() {
 
     private var mHandler: Handler? = null
