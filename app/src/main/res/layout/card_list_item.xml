@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="125dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -18,10 +19,11 @@
         <ImageView
             android:layout_width="90dp"
             android:layout_height="90dp"
-            android:layout_margin="10dp"
-            android:src="@drawable/ic_list_tx"
             android:layout_gravity="start|center"
-            android:contentDescription="@string/logo"/>
+            android:layout_margin="10dp"
+            android:contentDescription="@string/logo"
+            android:src="@drawable/ic_list_tx"
+            tools:ignore="ImageContrastCheck" />
 
 
         <LinearLayout

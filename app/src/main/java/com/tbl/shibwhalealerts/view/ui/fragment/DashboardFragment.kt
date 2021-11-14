@@ -67,8 +67,6 @@ class DashboardFragment : Fragment(), TxAdapter.OnTxClickListener {
         viewModel.setData(results)
         fragmentCommunicator = activity as FragmentCommunication
         fragmentCommunicator.passData()
-
-
     }
 
 }

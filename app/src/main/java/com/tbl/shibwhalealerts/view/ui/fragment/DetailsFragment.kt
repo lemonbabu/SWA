@@ -39,7 +39,7 @@ class DetailsFragment : Fragment() {
                 val obj = TxDataModel(txData)
 
                 tvTxHas.text = Html.fromHtml(obj.getTxHas())
-                tvStatus.text = Html.fromHtml(obj.getStatus())
+                tvStatus.text = Html.fromHtml(obj.getCon())
                 tvBlockNo.text = Html.fromHtml(obj.getBlockNo())
                 tvTimeStamp.text = Html.fromHtml(obj.getTime())
                 tvFrom.text = Html.fromHtml(obj.getAddressFrom())
