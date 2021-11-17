@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import androidx.lifecycle.ViewModelProvider
 import com.tbl.shibwhalealerts.R
 import com.tbl.shibwhalealerts.gone
+import com.tbl.shibwhalealerts.service.TxListService
 import com.tbl.shibwhalealerts.viewModel.DashboardViewModel
 import com.tbl.shibwhalealerts.visible
 import kotlinx.android.synthetic.main.fragment_dashboard.*
@@ -35,11 +36,12 @@ class DashboardFragment : Fragment(), TxAdapter.OnTxClickListener {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
 
+        val obj = TxListService()
         model = ViewModelProvider(requireActivity())[DashboardViewModel::class.java]
         view.progressBar.visible()
         view.rvTxList.gone()
-        model.setTxData()
-        view.swfRefresh.setOnRefreshListener { model.setTxData() }
+        model.setTxData(obj.apiData())
+        view.swfRefresh.setOnRefreshListener { model.setTxData(obj.apiData()) }
 
         model.getTxData().observe(viewLifecycleOwner, {
             adapter = TxAdapter(it, this)

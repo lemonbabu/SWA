@@ -2,16 +2,22 @@ package com.tbl.shibwhalealerts.view.ui
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.tbl.shibwhalealerts.R
+import com.tbl.shibwhalealerts.gone
+import com.tbl.shibwhalealerts.service.TxListService
 import com.tbl.shibwhalealerts.view.ui.fragment.DashboardFragment
 import com.tbl.shibwhalealerts.view.ui.fragment.DetailsFragment
+import com.tbl.shibwhalealerts.viewModel.DashboardViewModel
 import com.tbl.shibwhalealerts.viewModel.FragmentCommunication
 import com.tbl.shibwhalealerts.viewModel.MainModelView
+import com.tbl.shibwhalealerts.visible
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import java.lang.Exception
 
 class MainActivity : AppCompatActivity(), FragmentCommunication {
@@ -21,6 +27,12 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Services Calling for Txn data
+        Intent(this, TxListService::class.java).also{
+            startService(it)
+        }
+
 
         viewModel = ViewModelProvider(this)[MainModelView::class.java]
         //Fragment set Observer

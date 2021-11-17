@@ -51,7 +51,7 @@ class TxAdapter (private val txList: ArrayList<TxData>, private var onTxClickLis
         return try {
             var price: Double = s.toDouble()
             price = String.format("%.3f",(price/100000000000000000 * 0.00005369)).toDouble()
-            "$"+ price.toString()
+            "$$price"
         }catch (e:  NumberFormatException){
             "0.00"
         }

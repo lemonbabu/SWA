@@ -52,7 +52,7 @@ class TxDataModel(var data: TxData) {
             var price: Double = data.value.toDouble()
             val v: Double = price/100000000000000000
             price = String.format("%.3f",(price/100000000000000000 * 0.00005369)).toDouble()
-            txt + v + "($" + price.toString() + ")"
+            "$txt$v($$price)"
         }catch (e:  NumberFormatException){
             txt + "0.00"
         }

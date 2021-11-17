@@ -1,16 +1,11 @@
 package com.tbl.shibwhalealerts.viewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tbl.shibwhalealerts.service.api.TxApiModel
 import com.tbl.shibwhalealerts.service.api.TxInterface
-import com.tbl.shibwhalealerts.service.model.data.TxApiResponse
 import com.tbl.shibwhalealerts.service.model.data.TxData
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class DashboardViewModel: ViewModel() {
 
@@ -24,21 +19,22 @@ class DashboardViewModel: ViewModel() {
     }
 
 
-    fun setTxData(){
-        apiClient.getTxs().enqueue(object : Callback<TxApiResponse> {
-            override fun onResponse(call: Call<TxApiResponse>, response: Response<TxApiResponse>) {
-                if (response.isSuccessful) {
-                    currentData.value = response.body()?.TxList!!
-                } else
-                    localData()
-            }
-
-            override fun onFailure(call: Call<TxApiResponse>, t: Throwable) {
-                localData()
-                Log.d("MainActivity", t.message.toString())
-            }
-
-        })
+    fun setTxData(data: ArrayList<TxData>){
+        currentData.value = data
+//        apiClient.getTxs().enqueue(object : Callback<TxApiResponse> {
+//            override fun onResponse(call: Call<TxApiResponse>, response: Response<TxApiResponse>) {
+//                if (response.isSuccessful) {
+//                    currentData.value = response.body()?.TxList!!
+//                } else
+//                    localData()
+//            }
+//
+//            override fun onFailure(call: Call<TxApiResponse>, t: Throwable) {
+//                localData()
+//                Log.d("MainActivity", t.message.toString())
+//            }
+//
+//        })
     }
 
     fun getTxData(): LiveData<ArrayList<TxData>> {
