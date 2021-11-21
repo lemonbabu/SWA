@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="125dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:theme="@style/Theme.AppCompat.Light"
     app:cardCornerRadius="10dp"
@@ -13,7 +13,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <ImageView
@@ -28,7 +28,7 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_marginEnd="10dp"
@@ -44,7 +44,7 @@
                     android:id="@+id/tvTxHas"
                     android:layout_width="0dp"
                     android:layout_height="20dp"
-                    android:layout_weight="65"
+                    android:layout_weight="55"
                     android:layout_gravity="center|start"
                     android:layout_marginEnd="5dp"
                     android:maxLines="1"
@@ -56,7 +56,7 @@
                     android:id="@+id/tvPrice"
                     android:layout_width="0dp"
                     android:layout_height="25dp"
-                    android:layout_weight="35"
+                    android:layout_weight="45"
                     android:paddingTop="3dp"
                     android:paddingStart="15dp"
                     android:paddingEnd="0dp"

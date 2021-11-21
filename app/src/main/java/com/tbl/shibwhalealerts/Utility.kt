@@ -2,6 +2,7 @@ package com.tbl.shibwhalealerts
 
 import android.annotation.SuppressLint
 import android.view.View
+import com.tbl.shibwhalealerts.service.model.data.TxData
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,6 +48,16 @@ fun getDateTime(s: String): String? {
 
     } catch (e: Exception) {
         e.toString()
+    }
+}
+
+fun getPrice(data: TxData):Double{
+    return try {
+        var price: Double = data.value.toDouble()
+        price = String.format("%.3f",(price/100000000000000000 * 0.00005369)).toDouble()
+        price
+    }catch (e:  NumberFormatException){
+        0.00
     }
 }
 

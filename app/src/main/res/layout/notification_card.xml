@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Theme.AppCompat.Light"
+    app:cardBackgroundColor="@color/white">
+
+    <ImageView
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_gravity="start|center"
+        android:layout_margin="10dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/ic_list_tx"
+        tools:ignore="ImageContrastCheck" />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:weightSum="100"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTxHas"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_weight="55"
+                android:layout_gravity="center|start"
+                android:layout_marginEnd="5dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textColor="@color/black"
+                android:text="@string/txId"/>
+
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="0dp"
+                android:layout_height="25dp"
+                android:layout_weight="45"
+                android:paddingTop="3dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="0dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textAlignment="center"
+                android:background="@drawable/bg_price_tag"
+                android:text="@string/price"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/_50_secs_ago"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginEnd="5dp"
+                android:textColor="@color/black"
+                android:text="@string/from"/>
+
+            <TextView
+                android:id="@+id/tvAddressFrom"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="@string/txId"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginEnd="5dp"
+                android:textColor="@color/black"
+                android:text="@string/to"/>
+
+            <TextView
+                android:id="@+id/tvAddressTo"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:text="@string/txId"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

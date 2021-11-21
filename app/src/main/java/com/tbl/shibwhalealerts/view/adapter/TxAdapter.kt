@@ -1,5 +1,6 @@
 package com.tbl.shibwhalealerts.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,7 @@ class TxAdapter (private val txList: ArrayList<TxData>, private var onTxClickLis
     }
 
     override fun getItemCount(): Int {
+        Log.d("TxAdapter ", "= " + txList.size)
         return txList.size
     }
 

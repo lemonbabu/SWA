@@ -8,18 +8,16 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.tbl.shibwhalealerts.R
-import com.tbl.shibwhalealerts.gone
 import com.tbl.shibwhalealerts.service.TxListService
 import com.tbl.shibwhalealerts.view.ui.fragment.DashboardFragment
 import com.tbl.shibwhalealerts.view.ui.fragment.DetailsFragment
-import com.tbl.shibwhalealerts.viewModel.DashboardViewModel
 import com.tbl.shibwhalealerts.viewModel.FragmentCommunication
 import com.tbl.shibwhalealerts.viewModel.MainModelView
-import com.tbl.shibwhalealerts.visible
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_dashboard.view.*
+import kotlinx.coroutines.DelicateCoroutinesApi
 import java.lang.Exception
 
+@DelicateCoroutinesApi
 class MainActivity : AppCompatActivity(), FragmentCommunication {
 
     private lateinit var viewModel: MainModelView
