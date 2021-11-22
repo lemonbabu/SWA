@@ -55,7 +55,7 @@
             android:id="@+id/fcvMain"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:name="com.tbl.shibwhalealerts.view.ui.fragment.DashboardFragment"
+            android:name="com.crytpo.shibwhalealerts.view.ui.fragment.DashboardFragment"
             tools:layout="@layout/fragment_dashboard" />
 
     </LinearLayout>
