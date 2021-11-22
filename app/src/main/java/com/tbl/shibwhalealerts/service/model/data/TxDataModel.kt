@@ -121,19 +121,9 @@ class TxDataModel(var data: TxData) {
     fun getCon(): String{
         txt = "<font color=#3498DB>Confirmations: </font>"
         return if(data.confirmation == "1")
-            txt + "Success"
+            txt + data.confirmation
         else
-            txt + "Failed"
+            txt + data.confirmation
     }
-
-
-
-
-
-
-
-
-
-
 
 }

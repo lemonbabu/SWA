@@ -29,7 +29,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
+                android:text="@string/txn_has"/>
 
             <View
                 android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
+                android:text="@string/status"/>
 
             <View
                 android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text=""/>
+                android:text="@string/block_no"/>
 
             <View
                 android:layout_width="match_parent"
@@ -77,7 +77,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text=""/>
+                android:text="@string/time_stamp"/>
 
             <View
                 android:layout_width="match_parent"
@@ -93,7 +93,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
+                android:text="@string/from"/>
 
             <View
                 android:layout_width="match_parent"
@@ -109,7 +109,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
+                android:text="@string/to"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
@@ -124,7 +124,40 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
+                android:text="@string/transaction_value"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="-20dp"
+                android:layout_marginEnd="-20dp"
+                android:background="@color/white_lite"/>
+
+            <TextView
+                android:id="@+id/tvContactAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:text="@string/contact_address"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="-20dp"
+                android:layout_marginEnd="-20dp"
+                android:background="@color/white_lite"/>
+
+            <TextView
+                android:id="@+id/tvBlockHas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:text="@string/block_has"/>
 
             <View
                 android:layout_width="match_parent"
@@ -140,7 +173,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
+                android:text="@string/txn_fee"/>
 
             <View
                 android:layout_width="match_parent"
@@ -156,7 +189,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
+                android:text="@string/gas_price"/>
 
 
             <View
@@ -173,7 +206,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
+                android:text="@string/gas_limit"/>
 
 
             <View
@@ -190,72 +223,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
-
-            <!--
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="-20dp"
-                android:layout_marginEnd="-20dp"
-                android:background="@color/white_lite"/>
-
-            <TextView
-                android:id="@+id/tvBaseFee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="-20dp"
-                android:layout_marginEnd="-20dp"
-                android:background="@color/white_lite"/>
-
-            <TextView
-                android:id="@+id/tvMaxFee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="-20dp"
-                android:layout_marginEnd="-20dp"
-                android:background="@color/white_lite"/>
-
-            <TextView
-                android:id="@+id/tvMaxPriFee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginStart="-20dp"
-                android:layout_marginEnd="-20dp"
-                android:background="@color/white_lite"/>
-
-            <TextView
-                android:id="@+id/tvBurntFees"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
+                android:text="@string/gas_used"/>
 
 
             <View
@@ -266,13 +234,13 @@
                 android:background="@color/white_lite"/>
 
             <TextView
-                android:id="@+id/tvTxSavings"
+                android:id="@+id/tvCumGasUsed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
+                android:text="@string/cumulative_gas_used"/>
 
             <View
                 android:layout_width="match_parent"
@@ -282,15 +250,64 @@
                 android:background="@color/white_lite"/>
 
             <TextView
-                android:id="@+id/tvTxType"
+                android:id="@+id/tvTxnIndex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
+                android:text="@string/txn_index"/>
 
-            -->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="-20dp"
+                android:layout_marginEnd="-20dp"
+                android:background="@color/white_lite"/>
+
+            <TextView
+                android:id="@+id/tvTokenName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:text="@string/token_name"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="-20dp"
+                android:layout_marginEnd="-20dp"
+                android:background="@color/white_lite"/>
+
+            <TextView
+                android:id="@+id/tvTokenSyb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:text="@string/token_symbol"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginStart="-20dp"
+                android:layout_marginEnd="-20dp"
+                android:background="@color/white_lite"/>
+
+            <TextView
+                android:id="@+id/tvTokenDec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:textSize="18sp"
+                android:text="@string/token_decimal"/>
+
 
             <View
                 android:layout_width="match_parent"
@@ -306,7 +323,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
+                android:text="@string/nonce"/>
 
             <View
                 android:layout_width="match_parent"
@@ -322,7 +339,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:textSize="18sp"
-                android:text="@string/transaction_hash"/>
+                android:text="@string/input_data"/>
 
         </LinearLayout>
 

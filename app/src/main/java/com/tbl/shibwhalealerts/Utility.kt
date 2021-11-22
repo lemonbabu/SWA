@@ -25,7 +25,9 @@ fun getDateTime(s: String): String? {
         // current timestamp in sec
         val epoch = System.currentTimeMillis()/1000
         // Difference between two epoc
-        val dif = epoch - s.toLong()
+        var dif = epoch - s.toLong()
+        if(dif < 0 )
+            dif = 0
         val timeDif: String
         when {
             dif<60 -> {

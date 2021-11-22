@@ -9,7 +9,25 @@
     <string name="_50_secs_ago">50 secs ago</string>
     <string name="txId">0xb4a54af9fe087d8bcb3ca6f60f52d6e3bb12ee34f3d820e4ffc3cd63</string>
     <string name="price">0.013245</string>
-    <string name="from">From:</string>
-    <string name="to">To:</string>
     <string name="transaction_hash">Transaction Hash: 0xb4a54af9fe087d8bce32fs526s36g54s43523sts52525fsf32424264bca6f60f52d6e3bb12ee34f3d820e4ff5cd63</string>
+    <string name="contact_address">Contact Address</string>
+    <string name="transaction_value">Transaction Value</string>
+    <string name="txn_fee">Txn Fee</string>
+    <string name="gas_price">Gas Price</string>
+    <string name="gas_limit">Gas Limit</string>
+    <string name="gas_used">Gas Used</string>
+    <string name="nonce">Nonce:</string>
+    <string name="input_data">Input Data:</string>
+    <string name="to">To:</string>
+    <string name="from">From:</string>
+    <string name="time_stamp">Time Stamp:</string>
+    <string name="block_no">Block No:</string>
+    <string name="status">Status:</string>
+    <string name="txn_has">Txn Has:</string>
+    <string name="cumulative_gas_used">Cumulative Gas Used:</string>
+    <string name="txn_index">txn Index:</string>
+    <string name="block_has">Block Has:</string>
+    <string name="token_name">Token Name:</string>
+    <string name="token_symbol">Token Symbol:</string>
+    <string name="token_decimal">Token Decimal:</string>
 </resources>
