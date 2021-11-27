@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Handler
 import android.os.IBinder
@@ -19,13 +20,14 @@ import com.crytpo.shibwhalealerts.service.api.TxApiModel
 import com.crytpo.shibwhalealerts.service.api.TxInterface
 import com.crytpo.shibwhalealerts.service.model.data.TxApiResponse
 import com.crytpo.shibwhalealerts.service.model.data.TxData
-import com.crytpo.shibwhalealerts.view.ui.fragment.DashboardFragment
+import com.crytpo.shibwhalealerts.view.ui.MainActivity
 import com.crytpo.shibwhalealerts.viewModel.BigTx
+import com.crytpo.shibwhalealerts.viewModel.DataByNot
 import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import kotlin.collections.ArrayList
+import kotlin.properties.Delegates
 
 @DelicateCoroutinesApi
 class TxListService : Service() {
@@ -36,6 +38,7 @@ class TxListService : Service() {
     private var newArrayList: ArrayList<TxData> = arrayListOf()
     private var topTx: ArrayList<TxData> = arrayListOf()
     private var index = 0
+    private var filterPrice by Delegates.notNull<Float>()
 
     override fun onBind(intent: Intent?): IBinder? = null
 
@@ -50,18 +53,30 @@ class TxListService : Service() {
         return START_STICKY
     }
 
+    private fun setValue() {
+        val sharedPreferences: SharedPreferences = getSharedPreferences("Filter", Context.MODE_PRIVATE)
+        val remember = sharedPreferences.getBoolean("value", false)
+        filterPrice = if(remember){
+            sharedPreferences.getFloat("price", 300000.0F)
+        } else
+            300000.00F
+        Log.d("Price Value = ", filterPrice.toString())
+    }
+
     private fun apiData(): ArrayList<TxData> {
         apiClient.getTxs().enqueue(object : Callback<TxApiResponse> {
             override fun onResponse(call: Call<TxApiResponse>, response: Response<TxApiResponse>) {
-                newArrayList = if (response.isSuccessful) {
-                    response.body()?.TxList!!
-                } else
-                    localData()
+
+                if(response.body()?.status == "1"){
+                    newArrayList = response.body()?.TxList!!
+                    Log.d("API call success= ", response.body()?.message.toString())
+                }else
+                    newArrayList = localData()
             }
 
             override fun onFailure(call: Call<TxApiResponse>, t: Throwable) {
                 newArrayList = localData()
-                Log.d("Services ", t.message.toString())
+                Log.d("Internal Error", t.message.toString())
             }
         })
         return newArrayList
@@ -69,35 +84,42 @@ class TxListService : Service() {
 
 
     private fun bigTx(){
-        GlobalScope.launch(Dispatchers.IO) {
-            while (true) {
-                delay(2000)
-                val data: ArrayList<TxData> = apiData()
-                for (i in data) {
-                    val price = async { getPrice(i) }
-                    if (price.await() >= 100000 && (topTx.find {actor -> i == actor } == null)) {
-                        topTx.add(0, i)
-                        callNot(i)
-                        index++
-                        if (index == 11) {
-                            topTx.removeAt(10)
-                            index--
-                        }
-                        broadcastTxs(topTx)
+        try {
+            GlobalScope.launch(Dispatchers.IO) {
+                while (true) {
+                    setValue()
+                    delay(1000)
+                    val data: ArrayList<TxData> = apiData()
+                    for (i in data) {
+                        val price = async { getPrice(i) }
+                        if (price.await() >= filterPrice && (topTx.find {actor -> i == actor } == null)) {
+                            topTx.add(0, i)
+                            callNot(i)
+                            index++
+                            if (index >= 11) {
+                                topTx.removeAt(10)
+                                index--
+                            }
+                            broadcastTxs(topTx)
 //                        withContext(Dispatchers.Main) {
 //
 //                            Log.d("Services ", "Call View model= ${topTx.size}")
 //                        }
+                        }
                     }
                     Log.d("Services ", "Tx data = " + data.size + " Big data = " + topTx.size)
                 }
             }
+        } catch (e: Exception){
+            Log.d("Services ", "No internet")
         }
+
     }
 
     private fun broadcastTxs(txs: ArrayList<TxData>){
         mainHandler.post{
             BigTx.txs.value = txs
+            Log.d("BigTx ", "Call big Tnx data ")
         }
     }
 
@@ -140,11 +162,13 @@ class TxListService : Service() {
     private fun callNot(data: TxData){
         createNotificationChannel()
 
+
         val intent: Intent
         val pendingIntent: PendingIntent
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            intent = Intent(this, DashboardFragment::class.java)
+            intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("nav", "Details")
             pendingIntent = PendingIntent.getActivity(
                 this,
                 100,
@@ -159,6 +183,13 @@ class TxListService : Service() {
                 PendingIntent.FLAG_CANCEL_CURRENT
             )
         }
+
+        mainHandler.post{
+            DataByNot.data.value = data
+        }
+//        fragmentCommunicator = pendingIntent as FragmentCommunication
+//        fragmentCommunicator.passData("Details")
+
         //val notificationLayout = RemoteViews(packageName, R.layout.notification_card)
         val builder: NotificationCompat.Builder = NotificationCompat.Builder(this,CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_list_tx)

@@ -30,4 +30,10 @@
     <string name="token_name">Token Name:</string>
     <string name="token_symbol">Token Symbol:</string>
     <string name="token_decimal">Token Decimal:</string>
+    <string name="image_back">Image back</string>
+    <string name="image_filter">Image Filter</string>
+    <string name="price_value_filtering">Price Value Filtering</string>
+    <string name="default_value_300_000_0">Minimum value = 100,000</string>
+    <string name="_300_000_00">300,000.00</string>
+    <string name="update">Update</string>
 </resources>

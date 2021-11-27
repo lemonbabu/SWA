@@ -2,5 +2,5 @@ package com.crytpo.shibwhalealerts.viewModel
 
 
 interface FragmentCommunication {
-    fun passData()
+    fun passData(data : String)
 }

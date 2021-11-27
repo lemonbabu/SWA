@@ -5,7 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.crytpo.shibwhalealerts.view.ui.fragment.DashboardFragment
+import kotlinx.coroutines.DelicateCoroutinesApi
 
+@DelicateCoroutinesApi
 class MainModelView: ViewModel() {
 
     private val currentState: MutableLiveData<Fragment> by lazy {

@@ -44,7 +44,48 @@ data class TxData(
     @SerializedName("confirmations")
     var confirmation: String = "",
 
-): Serializable
+): Serializable{
+
+    override fun equals(other: Any?): Boolean {
+        if (javaClass != other?.javaClass){
+            return false
+        }
+        other as TxData
+        if (txHas != other.txHas){
+            return false
+        }
+        if (value != other.value){
+            return false
+        }
+        if (time != other.time){
+            return false
+        }
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = blockNo.hashCode()
+        result = 31 * result + time.hashCode()
+        result = 31 * result + txHas.hashCode()
+        result = 31 * result + nonce.hashCode()
+        result = 31 * result + txBlockHas.hashCode()
+        result = 31 * result + addressFrom.hashCode()
+        result = 31 * result + cntAddress.hashCode()
+        result = 31 * result + addressTO.hashCode()
+        result = 31 * result + value.hashCode()
+        result = 31 * result + tokenName.hashCode()
+        result = 31 * result + tokenSymbol.hashCode()
+        result = 31 * result + tokenDecimal.hashCode()
+        result = 31 * result + txIndex.hashCode()
+        result = 31 * result + gas.hashCode()
+        result = 31 * result + gasPrice.hashCode()
+        result = 31 * result + gasUsed.hashCode()
+        result = 31 * result + cuGasUsed.hashCode()
+        result = 31 * result + input.hashCode()
+        result = 31 * result + confirmation.hashCode()
+        return result
+    }
+}
 
 
 //@SerializedName("isError")

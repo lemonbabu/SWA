@@ -63,26 +63,3 @@ fun getPrice(data: TxData):Double{
     }
 }
 
-/* //for use need this requirement "@RequiresApi(Build.VERSION_CODES.O)"
-        val dt = Instant.ofEpochSecond(s.toLong())
-            .atZone(ZoneId.systemDefault())
-            .toLocalDateTime()
-        val dateTime = dt.format(DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss"))
-        */
-
-
-// It's the country getting function from latitude and longitude in https://randomuser.me/ have no county that why need it's
-//fun Context.getAddress(latitude: Double, longitude: Double): String? {
-//    val result = StringBuilder()
-//    try {
-//        val geocoder = Geocoder(this, Locale.getDefault())
-//        val addresses = geocoder.getFromLocation(latitude, longitude, 1)
-//        if (addresses.size > 0) {
-//            val address = addresses[0]
-//            result.append(address.countryName)
-//        }
-//    } catch (e: IOException) {
-//        Log.e("tag", e.toString())
-//    }
-//    return result.toString()
-//}

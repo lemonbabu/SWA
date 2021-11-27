@@ -9,13 +9,11 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.crytpo.shibwhalealerts.R
 import com.crytpo.shibwhalealerts.service.TxListService
-import com.crytpo.shibwhalealerts.view.ui.fragment.DashboardFragment
-import com.crytpo.shibwhalealerts.view.ui.fragment.DetailsFragment
+import com.crytpo.shibwhalealerts.view.ui.fragment.*
 import com.crytpo.shibwhalealerts.viewModel.FragmentCommunication
 import com.crytpo.shibwhalealerts.viewModel.MainModelView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.DelicateCoroutinesApi
-import java.lang.Exception
 
 @DelicateCoroutinesApi
 class MainActivity : AppCompatActivity(), FragmentCommunication {
@@ -25,14 +23,29 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val nav = intent.getStringExtra("nav")
 
         // Services Calling for Txn data
         Intent(this, TxListService::class.java).also{
             startService(it)
         }
-
-
         viewModel = ViewModelProvider(this)[MainModelView::class.java]
+
+        when (nav) {
+            "Details" -> {
+                viewModel.setState(DetailsFragment())
+                viewModel.setTitle("Transaction Details")
+                viewModel.setBack(true)
+            }
+            else -> {
+                viewModel.setState(DashboardFragment())
+                viewModel.setBack(false)
+                viewModel.setTitle("Latest Transactions")
+            }
+        }
+
+
+
         //Fragment set Observer
         viewModel.getState().observe(this, {
             val fragmentManager = supportFragmentManager
@@ -57,22 +70,43 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
             viewModel.setBack(false)
             viewModel.setTitle("Latest Transactions")
         }
+
+        btnSetting.setOnClickListener {
+            viewModel.setState(FilterFragment())
+            viewModel.setTitle("Filtering")
+            viewModel.setBack(true)
+        }
     }
 
-    override fun passData() {
-        viewModel.setState(DetailsFragment())
-        viewModel.setTitle("Transaction Details")
-        viewModel.setBack(true)
+    override fun passData(data: String) {
+        when (data) {
+            "Filter" -> {
+                viewModel.setState(FilterFragment())
+                viewModel.setTitle("Filtering")
+                viewModel.setBack(true)
+
+            }
+            "Details" -> {
+                viewModel.setState(DetailsFragment())
+                viewModel.setTitle("Transaction Details")
+                viewModel.setBack(true)
+            }
+            else -> {
+                viewModel.setState(DashboardFragment())
+                viewModel.setBack(false)
+                viewModel.setTitle("Latest Transactions")
+            }
+        }
     }
 
     // Clear local data
-    private fun deleteAppData() {
-        try {
-            Runtime.getRuntime().exec("pm clear $packageName")
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
+//    private fun deleteAppData() {
+//        try {
+//            Runtime.getRuntime().exec("pm clear $packageName")
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+//    }
 
     override fun onBackPressed() {
         if(viewModel.back.value == true){
@@ -86,7 +120,7 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
             .setTitle("Closing Activity")
             .setMessage("Are you sure? Do you want to exit this app?")
             .setPositiveButton("Yes") { _: DialogInterface, _: Int ->
-                deleteAppData()
+                //deleteAppData()
                 super.onBackPressed() }
             .setNegativeButton("No", null)
             .show()

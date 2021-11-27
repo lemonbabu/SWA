@@ -1,11 +1,9 @@
 package com.crytpo.shibwhalealerts.view.ui.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import com.crytpo.shibwhalealerts.service.model.data.TxData
@@ -15,69 +13,71 @@ import com.crytpo.shibwhalealerts.viewModel.ItemViewModel
 import kotlinx.android.synthetic.main.fragment_dashboard.view.*
 import androidx.lifecycle.ViewModelProvider
 import com.crytpo.shibwhalealerts.R
+import com.crytpo.shibwhalealerts.databinding.FragmentDashboardBinding
 import com.crytpo.shibwhalealerts.gone
 import com.crytpo.shibwhalealerts.viewModel.BigTx
 import com.crytpo.shibwhalealerts.viewModel.DashboardViewModel
 import com.crytpo.shibwhalealerts.visible
-import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 @DelicateCoroutinesApi
-class DashboardFragment : Fragment(), TxAdapter.OnTxClickListener {
+class DashboardFragment : Fragment(R.layout.fragment_dashboard), TxAdapter.OnTxClickListener {
 
     private lateinit var adapter: TxAdapter
+    private lateinit var binding: FragmentDashboardBinding
 
     private lateinit var fragmentCommunicator: FragmentCommunication
     private lateinit var viewModel: ItemViewModel
     private lateinit var model: DashboardViewModel
+    private var data = ArrayList<TxData>()
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentDashboardBinding.bind(view)
 
-    @SuppressLint("NotifyDataSetChanged")
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_dashboard, container, false)
 
         model = ViewModelProvider(requireActivity())[DashboardViewModel::class.java]
-        view.progressBar.visible()
-        view.rvTxList.gone()
-        view.rvTxList.layoutManager = GridLayoutManager(context,1)
-        view.rvTxList.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        binding.progressBar.visible()
+        binding.rvTxList.gone()
+        binding.rvTxList.layoutManager = GridLayoutManager(context,1)
+        binding.rvTxList.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        adapter = TxAdapter( this)
 
 
         //Service Live data by object
         BigTx.txs.observe(viewLifecycleOwner){
+            data = it
             model.setTxData(it)
+            Log.d("Live Data ", it.toString())
         }
 
         view.swfRefresh.setOnRefreshListener {
-            //model.setTxData(obj.getTopTxs())
+            loadData(data as List<TxData>)
         }
 
         model.getTxData().observe(viewLifecycleOwner, {
-            loadData(it)
+            loadData(it as List<TxData>)
         })
-        return view
+
+
     }
+
 
     // Item onclick listener
     override fun onTxClickListener(results: TxData) {
         viewModel = ViewModelProvider(requireActivity())[ItemViewModel::class.java]
         viewModel.setData(results)
         fragmentCommunicator = activity as FragmentCommunication
-        fragmentCommunicator.passData()
+        fragmentCommunicator.passData("Details")
     }
 
 
-    private fun loadData(data: ArrayList<TxData>){
-        adapter = TxAdapter(data, this)
-        rvTxList.adapter = adapter
-        progressBar.gone()
-        rvTxList.visible()
-        swfRefresh.isRefreshing = false
+    private fun loadData(data: List<TxData>){
+        adapter.setListItem(data)
+        binding.rvTxList.adapter = adapter
+        binding.progressBar.gone()
+        binding.rvTxList.visible()
+        binding.swfRefresh.isRefreshing = false
     }
 
 }

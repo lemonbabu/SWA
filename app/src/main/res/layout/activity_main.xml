@@ -19,12 +19,24 @@
         android:layout_width="wrap_content"
         android:layout_height="120dp"
         android:layout_gravity="start|center"
+        android:layout_alignParentStart="true"
         android:layout_marginStart="10dp"
         android:background="@null"
-        android:contentDescription="@string/back_button"
+        android:contentDescription="@string/image_back"
         android:minWidth="48dp"
-        android:src="@drawable/ic_back_button"
-        tools:ignore="RedundantDescriptionCheck" />
+        android:src="@drawable/ic_back_button" />
+
+    <ImageButton
+        android:id="@+id/btnSetting"
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_gravity="end|center"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:background="@null"
+        android:contentDescription="@string/image_filter"
+        android:minWidth="48dp"
+        android:src="@drawable/ic_filter" />
 
     <LinearLayout
         android:id="@+id/layoutHeader"
@@ -42,6 +54,8 @@
             android:text="@string/latest_transactions"/>
 
     </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"

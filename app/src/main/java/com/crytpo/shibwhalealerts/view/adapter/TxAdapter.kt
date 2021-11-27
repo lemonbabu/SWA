@@ -5,13 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.crytpo.shibwhalealerts.R
 import com.crytpo.shibwhalealerts.getDateTime
 import com.crytpo.shibwhalealerts.service.model.data.TxData
 import kotlin.collections.ArrayList
 
-class TxAdapter (private val txList: ArrayList<TxData>, private var onTxClickListener: OnTxClickListener): RecyclerView.Adapter<TxAdapter.ViewHolder>(){
+class TxAdapter (private var onTxClickListener: OnTxClickListener): RecyclerView.Adapter<TxAdapter.ViewHolder>(){
+
+    private var txList: List<TxData> = ArrayList()
+
+    fun setListItem(list: List<TxData>){
+        val oldTxList = txList
+        val diffResult: DiffUtil.DiffResult = DiffUtil.calculateDiff(
+            TxDiffCallBack(
+                oldTxList,
+                list
+            )
+        )
+        txList = list
+        diffResult.dispatchUpdatesTo(this)
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TxAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.card_list_item, parent, false)
@@ -45,10 +61,6 @@ class TxAdapter (private val txList: ArrayList<TxData>, private var onTxClickLis
         var tvAddressTO: TextView = itemView.findViewById(R.id.tvAddressTo)
     }
 
-    interface OnTxClickListener{
-        fun onTxClickListener(results: TxData)
-    }
-
     private fun getPrice(s: String): String?{
         return try {
             var price: Double = s.toDouble()
@@ -59,5 +71,31 @@ class TxAdapter (private val txList: ArrayList<TxData>, private var onTxClickLis
         }
     }
 
+    interface OnTxClickListener{
+        fun onTxClickListener(results: TxData)
+    }
+
+    class TxDiffCallBack(
+        private var oldTxList: List<TxData>,
+        private var newTxList: List<TxData>
+    ): DiffUtil.Callback(){
+        override fun getOldListSize(): Int {
+            return oldTxList.size
+        }
+
+        override fun getNewListSize(): Int {
+            return newTxList.size
+        }
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return (oldTxList[oldItemPosition].txHas == newTxList[newItemPosition].txHas)
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean{
+            return oldTxList[oldItemPosition].equals(newTxList[newItemPosition])
+        }
+
+    }
 }
+
 

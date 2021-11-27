@@ -22,7 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="com.crytpo.shibwhalealerts.service.TxListService"/>
+        <service
+            android:name="com.crytpo.shibwhalealerts.service.TxListService"
+            android:enabled="true"
+            android:exported="false" />
+
         <activity
             android:name="com.crytpo.shibwhalealerts.view.ui.MainActivity"
             android:exported="false">
