@@ -51,8 +51,20 @@ class FilterFragment : Fragment(R.layout.fragment_filter) {
             }else{
                 Toast.makeText(context, "Price value is too low", Toast.LENGTH_SHORT).show()
             }
-
         }
+
+        binding.btnDefault.setOnClickListener {
+            Toast.makeText(context, "Price value set default = 300,000", Toast.LENGTH_SHORT).show()
+            val sharedPreferences = activity?.getSharedPreferences("Filter", Context.MODE_PRIVATE)
+            val editor = sharedPreferences?.edit()
+            editor?.apply{
+                putBoolean("value", true)
+                putFloat("price", 300000.0F)
+            }?.apply()
+
+            fragmentCommunicator.passData("Dashboard")
+        }
+
     }
 
     @SuppressLint("SetTextI18n")

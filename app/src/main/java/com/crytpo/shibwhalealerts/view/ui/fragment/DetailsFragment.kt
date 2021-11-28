@@ -23,11 +23,13 @@ class DetailsFragment : Fragment(R.layout.fragment_details) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDetailsBinding.bind(view)
+        val message = arguments?.getString("notification")
 
-
-        //Service Live data by object
-        DataByNot.data.observe(viewLifecycleOwner){
-            viewModel.setData(it)
+        if(message == "yes"){
+            //Service Live data by object
+            DataByNot.data.observe(viewLifecycleOwner){
+                viewModel.setData(it)
+            }
         }
 
         viewModel = ViewModelProvider(requireActivity())[ItemViewModel::class.java]

@@ -23,9 +23,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
-            android:textSize="25sp"
+            android:textSize="30sp"
             android:textAlignment="center"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
             android:text="@string/price_value_filtering"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:textAlignment="center"
+            android:text="@string/des"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tvCurrentValue"
@@ -45,31 +55,55 @@
 
         <EditText
             android:id="@+id/etvPriceValue"
-            android:layout_width="130dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:padding="10dp"
+            android:layout_width="300dp"
+            android:layout_height="48dp"
             android:layout_gravity="center"
-            android:hint="@string/_300_000_00"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_white_primary_round"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:padding="10dp"
             android:textAlignment="center"
             android:textSize="15sp"
-            android:background="#FFDADA"
-            android:inputType="number"
-            android:importantForAutofill="no" />
+            tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
-        <Button
-            android:id="@+id/btnUpdate"
-            android:layout_width="150dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="40dp"
-            android:text="@string/update"
-            android:padding="5dp"
-            android:background="@color/primary"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textAllCaps="false"
-            android:layout_gravity="center"/>
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnDefault"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="40dp"
+                android:text="@string/def"
+                android:padding="5dp"
+                android:background="@drawable/ic_white_primary_round"
+                android:textColor="@color/primary"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                style="?android:attr/buttonBarButtonStyle" />
+
+            <Button
+                android:id="@+id/btnUpdate"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:text="@string/update"
+                android:padding="5dp"
+                android:background="@drawable/ic_primary_round"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:layout_gravity="center"
+                style="?android:attr/buttonBarButtonStyle" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
 

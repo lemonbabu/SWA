@@ -32,8 +32,13 @@
     <string name="token_decimal">Token Decimal:</string>
     <string name="image_back">Image back</string>
     <string name="image_filter">Image Filter</string>
-    <string name="price_value_filtering">Price Value Filtering</string>
+    <string name="price_value_filtering">Notification Setting</string>
     <string name="default_value_300_000_0">Minimum value = 100,000</string>
     <string name="_300_000_00">300,000.00</string>
     <string name="update">Update</string>
+    <string name="all">All</string>
+    <string name="buys">Buys</string>
+    <string name="sales">Sales</string>
+    <string name="des">You can set your notification filter by change \n the price value. Default value = 300,000.0</string>
+    <string name="def">Default</string>
 </resources>

@@ -35,6 +35,33 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), TxAdapter.OnTxC
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDashboardBinding.bind(view)
 
+        when (arguments?.getString("menu")) {
+            "buys" -> {
+                //Service Live data by object
+                BigTx.txsBuy.observe(viewLifecycleOwner){
+                    data = it
+                    model.setTxData(it)
+                    Log.d("Live Data ", it.toString())
+                }
+            }
+            "sales" -> {
+                //Service Live data by object
+                BigTx.txsSale.observe(viewLifecycleOwner){
+                    data = it
+                    model.setTxData(it)
+                    Log.d("Live Data ", it.toString())
+                }
+            }
+            else -> {
+                //Service Live data by object
+                BigTx.txs.observe(viewLifecycleOwner){
+                    data = it
+                    model.setTxData(it)
+                    Log.d("Live Data ", it.toString())
+                }
+            }
+        }
+
 
         model = ViewModelProvider(requireActivity())[DashboardViewModel::class.java]
         binding.progressBar.visible()
@@ -44,12 +71,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), TxAdapter.OnTxC
         adapter = TxAdapter( this)
 
 
-        //Service Live data by object
-        BigTx.txs.observe(viewLifecycleOwner){
-            data = it
-            model.setTxData(it)
-            Log.d("Live Data ", it.toString())
-        }
+
 
         view.swfRefresh.setOnRefreshListener {
             loadData(data as List<TxData>)

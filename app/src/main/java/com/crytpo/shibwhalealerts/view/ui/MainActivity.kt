@@ -3,6 +3,7 @@ package com.crytpo.shibwhalealerts.view.ui
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -33,14 +34,18 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
 
         when (nav) {
             "Details" -> {
-                viewModel.setState(DetailsFragment())
+                val bundle = Bundle()
+                bundle.putString("notification", "yes")
+                val fragment = DetailsFragment()
+                fragment.arguments = bundle
+
+                viewModel.setState(fragment)
                 viewModel.setTitle("Transaction Details")
                 viewModel.setBack(true)
+                menuBar.visibility = View.GONE
             }
             else -> {
-                viewModel.setState(DashboardFragment())
-                viewModel.setBack(false)
-                viewModel.setTitle("Latest Transactions")
+                goDashboard("all")
             }
         }
 
@@ -66,35 +71,52 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
         })
 
         btnBack.setOnClickListener {
-            viewModel.setState(DashboardFragment())
-            viewModel.setBack(false)
-            viewModel.setTitle("Latest Transactions")
+            goDashboard("all")
         }
 
         btnSetting.setOnClickListener {
             viewModel.setState(FilterFragment())
-            viewModel.setTitle("Filtering")
+            viewModel.setTitle("Setting")
             viewModel.setBack(true)
+            menuBar.visibility = View.GONE
         }
+
+        tvAll.setOnClickListener {
+            goDashboard("all")
+        }
+
+        tvBuys.setOnClickListener {
+            goDashboard("buys")
+            tvAll.setTextColor(Color.parseColor("#000000"))
+            tvBuys.setTextColor(Color.parseColor("#E84361"))
+            tvSales.setTextColor(Color.parseColor("#000000"))
+        }
+
+        tvSales.setOnClickListener {
+            goDashboard("sales")
+            tvAll.setTextColor(Color.parseColor("#000000"))
+            tvBuys.setTextColor(Color.parseColor("#000000"))
+            tvSales.setTextColor(Color.parseColor("#E84361"))
+        }
+
     }
 
     override fun passData(data: String) {
         when (data) {
             "Filter" -> {
                 viewModel.setState(FilterFragment())
-                viewModel.setTitle("Filtering")
+                viewModel.setTitle("Setting")
                 viewModel.setBack(true)
-
+                menuBar.visibility = View.GONE
             }
             "Details" -> {
                 viewModel.setState(DetailsFragment())
                 viewModel.setTitle("Transaction Details")
                 viewModel.setBack(true)
+                menuBar.visibility = View.GONE
             }
             else -> {
-                viewModel.setState(DashboardFragment())
-                viewModel.setBack(false)
-                viewModel.setTitle("Latest Transactions")
+                goDashboard("all")
             }
         }
     }
@@ -110,9 +132,7 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
 
     override fun onBackPressed() {
         if(viewModel.back.value == true){
-            viewModel.setState(DashboardFragment())
-            viewModel.setBack(false)
-            viewModel.setTitle("Latest Transactions")
+            goDashboard("all")
             return
         }
         AlertDialog.Builder(this)
@@ -124,6 +144,21 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
                 super.onBackPressed() }
             .setNegativeButton("No", null)
             .show()
+    }
+
+    private fun goDashboard(m: String){
+        tvAll.setTextColor(Color.parseColor("#E84361"))
+        tvBuys.setTextColor(Color.parseColor("#000000"))
+        tvSales.setTextColor(Color.parseColor("#000000"))
+        val bundle = Bundle()
+        bundle.putString("menu", m)
+        val fragment = DashboardFragment()
+        fragment.arguments = bundle
+
+        viewModel.setState(fragment)
+        viewModel.setBack(false)
+        viewModel.setTitle("Latest Transactions")
+        menuBar.visibility = View.VISIBLE
     }
 }
 

@@ -37,7 +37,11 @@ class TxListService : Service() {
     private val apiClient: TxInterface by lazy { TxApiModel.getApiClient() }
     private var newArrayList: ArrayList<TxData> = arrayListOf()
     private var topTx: ArrayList<TxData> = arrayListOf()
+    private var topTxBuy: ArrayList<TxData> = arrayListOf()
+    private var topTxSale: ArrayList<TxData> = arrayListOf()
     private var index = 0
+    private var indexBuy = 0
+    private var indexSale = 0
     private var filterPrice by Delegates.notNull<Float>()
 
     override fun onBind(intent: Intent?): IBinder? = null
@@ -88,7 +92,6 @@ class TxListService : Service() {
             GlobalScope.launch(Dispatchers.IO) {
                 while (true) {
                     setValue()
-                    delay(1000)
                     val data: ArrayList<TxData> = apiData()
                     for (i in data) {
                         val price = async { getPrice(i) }
@@ -100,7 +103,26 @@ class TxListService : Service() {
                                 topTx.removeAt(10)
                                 index--
                             }
-                            broadcastTxs(topTx)
+                            //This is for Sales checking
+                            if(i.cntAddress == i.addressFrom){
+                                topTxSale.add(0, i)
+                                indexSale++
+                                if (indexSale >= 11) {
+                                    topTxSale.removeAt(10)
+                                    indexSale--
+                                }
+                            }
+                            //This is for Buys checking
+                            if(i.cntAddress == i.addressTO){
+                                topTxBuy.add(0, i)
+                                indexBuy++
+                                if (indexBuy >= 11) {
+                                    topTxBuy.removeAt(10)
+                                    indexBuy--
+                                }
+                            }
+
+                            broadcastTxs(topTx, topTxBuy, topTxSale)
 //                        withContext(Dispatchers.Main) {
 //
 //                            Log.d("Services ", "Call View model= ${topTx.size}")
@@ -108,6 +130,7 @@ class TxListService : Service() {
                         }
                     }
                     Log.d("Services ", "Tx data = " + data.size + " Big data = " + topTx.size)
+                    delay(2000)
                 }
             }
         } catch (e: Exception){
@@ -116,10 +139,12 @@ class TxListService : Service() {
 
     }
 
-    private fun broadcastTxs(txs: ArrayList<TxData>){
+    private fun broadcastTxs(txs: ArrayList<TxData>, txBuy: ArrayList<TxData>, txSale: ArrayList<TxData>){
         mainHandler.post{
             BigTx.txs.value = txs
-            Log.d("BigTx ", "Call big Tnx data ")
+            BigTx.txsBuy.value = txBuy
+            BigTx.txsSale.value = txSale
+            Log.d("BigTx ", "$txs  $txBuy  $txSale")
         }
     }
 
@@ -169,24 +194,24 @@ class TxListService : Service() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             intent = Intent(this, MainActivity::class.java)
             intent.putExtra("nav", "Details")
+            mainHandler.post{
+                DataByNot.data.value = data
+            }
             pendingIntent = PendingIntent.getActivity(
                 this,
-                100,
+                0,
                 intent,
                 PendingIntent.FLAG_CANCEL_CURRENT
             )
         } else{
             pendingIntent = PendingIntent.getActivity(
                 this,
-                100,
+                0,
                 null,
                 PendingIntent.FLAG_CANCEL_CURRENT
             )
         }
 
-        mainHandler.post{
-            DataByNot.data.value = data
-        }
 //        fragmentCommunicator = pendingIntent as FragmentCommunication
 //        fragmentCommunicator.passData("Details")
 
@@ -200,6 +225,7 @@ class TxListService : Service() {
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
             //.setCustomBigContentView(notificationLayout)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
 
        with(NotificationManagerCompat.from(this)) {
            notify(0, builder.build())

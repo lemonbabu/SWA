@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "338086887879",
+    "project_id": "etherscan-39af6",
+    "storage_bucket": "etherscan-39af6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:338086887879:android:20e755b0b094abd621d9e2",
+        "android_client_info": {
+          "package_name": "com.crytpo.shibwhalealerts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "338086887879-ecjf4ng2ijuc0leant0a1gvlqlv4j4kv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmVn92V0pGRcOjd1j0dR-OiyHLKO4JrsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "338086887879-ecjf4ng2ijuc0leant0a1gvlqlv4j4kv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
