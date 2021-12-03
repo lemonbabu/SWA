@@ -7,11 +7,24 @@ object TxApiModel {
     private const val URL = "https://api.etherscan.io/"
 
     //retrofit builder
-    fun getApiClient(): TxInterface {
+    fun getBuyTxn(): ApiInterface.TxBuyInterface {
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        return retrofit.create(TxInterface::class.java)
+        return retrofit.create(ApiInterface.TxBuyInterface::class.java)
+    }
+
+
+    // This is for Normal txn API calling system
+    fun getSellTxn(): ApiInterface.TxSellInterface {
+        val retrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        return retrofit.create(ApiInterface.TxSellInterface::class.java)
     }
 }
+
+
+

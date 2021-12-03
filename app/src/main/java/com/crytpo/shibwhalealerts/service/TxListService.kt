@@ -16,10 +16,11 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.crytpo.shibwhalealerts.R
 import com.crytpo.shibwhalealerts.getPrice
+import com.crytpo.shibwhalealerts.service.api.ApiInterface
 import com.crytpo.shibwhalealerts.service.api.TxApiModel
-import com.crytpo.shibwhalealerts.service.api.TxInterface
 import com.crytpo.shibwhalealerts.service.model.data.TxApiResponse
 import com.crytpo.shibwhalealerts.service.model.data.TxData
+import com.crytpo.shibwhalealerts.service.repository.FilterBigTxn
 import com.crytpo.shibwhalealerts.view.ui.MainActivity
 import com.crytpo.shibwhalealerts.viewModel.BigTx
 import com.crytpo.shibwhalealerts.viewModel.DataByNot
@@ -27,14 +28,17 @@ import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.awaitResponse
 import kotlin.properties.Delegates
 
 @DelicateCoroutinesApi
 class TxListService : Service() {
 
     private var CHANNEL_ID = "Your_Channel_ID"
+    private var address = "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce"
     private var mainHandler: Handler = Handler()
-    private val apiClient: TxInterface by lazy { TxApiModel.getApiClient() }
+    private val buyTxn: ApiInterface.TxBuyInterface by lazy { TxApiModel.getBuyTxn() }
+    private val sellTx: ApiInterface.TxSellInterface by lazy { TxApiModel.getSellTxn() }
     private var newArrayList: ArrayList<TxData> = arrayListOf()
     private var topTx: ArrayList<TxData> = arrayListOf()
     private var topTxBuy: ArrayList<TxData> = arrayListOf()
@@ -46,18 +50,142 @@ class TxListService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 
-
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        Log.d("Services ", "Service Start")
-        bigTx()
-
-//        Thread{
-//
-//        }.start()
+        Log.d("Services ", "Service Starting")
+        getTxnData()
         return START_STICKY
     }
 
-    private fun setValue() {
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("Services ", "Service Destroy")
+    }
+
+    // Crate multiple threading for different task by Coroutine
+    private fun getTxnData(){
+        try {
+            // This for the Sells Txn list
+            GlobalScope.launch(Dispatchers.IO){
+                Log.d("Coroutine1 = ", "Sells Txn Start")
+                while (true){
+                    try {
+                        checkPriceValue()
+                        bigSellTxn()
+                        delay(2000L)
+                    }catch (e: Exception){ }
+                }
+            }
+        } catch (e : Exception){
+            Log.d("Coroutine1 Error=  ", e.toString())
+        }
+
+        try {
+            // This for the Buys Txn list
+            GlobalScope.launch(Dispatchers.IO){
+                delay(2000L)
+                Log.d("Coroutine2 =  ", "Buys Txn Start")
+                while (true){
+                    try {
+                        checkPriceValue()
+                        bigBuyTxn()
+                        delay(2000L)
+                    }catch (e: Exception){ }
+
+                }
+            }
+        } catch (e : Exception){
+            Log.d("Coroutine2 Error=  ", e.toString())
+        }
+
+
+    }
+
+
+
+    // API calling and get data and call filtering data for sells
+    private suspend fun bigSellTxn(){
+        try {
+            val response = sellTx.getTxs().awaitResponse()
+            if(response.isSuccessful){
+                val filtering = FilterBigTxn()
+                response.body()?.TxList?.let { filtering.setTxnData(filterPrice, it) }
+                val bigSellTxnData = filtering.getBigSellTxn()
+                newSellChecking(bigSellTxnData)
+                Log.d("Sells Txn(${response.body()?.TxList?.size})=  ", bigSellTxnData.size.toString())
+            }else{
+                Log.d("Sells Error=  ", response.errorBody().toString())
+            }
+        }catch(e: Exception){
+            Log.d("Sells API=  ", e.toString())
+        }
+
+    }
+
+    // API calling and get data and call filtering data for buys
+    private suspend fun bigBuyTxn(){
+        try {
+            val response = buyTxn.getTxs().awaitResponse()
+            if (response.isSuccessful) {
+                val filtering = FilterBigTxn()
+                response.body()?.TxList?.let { filtering.setTxnData(filterPrice, it) }
+                val bigBuyTxnData = filtering.getBigBuyTxn()
+                newBuyChecking(bigBuyTxnData)
+                Log.d("Buys Txn(${response.body()?.TxList?.size})=  ", bigBuyTxnData.size.toString())
+            } else {
+                Log.d("Buys Error=  ", response.errorBody().toString())
+            }
+        }catch(e: Exception){
+            Log.d("Buys API=  ", e.toString())
+        }
+    }
+
+
+    private suspend fun newBuyChecking(data: ArrayList<TxData>) {
+        //data.reverse()
+        for (i in data) {
+            if ((topTxBuy.find {actor -> i == actor } == null)) {
+                topTxBuy.add(0, i)
+                withContext(Dispatchers.Main){
+                    callNot(i)
+                }
+                indexBuy++
+                if (indexBuy >= 11) {
+                    topTxBuy.removeAt(10)
+                    indexBuy--
+                }
+                withContext(Dispatchers.Main){
+                    broadcastTxs(topTx, topTxBuy, topTxSale)
+                }
+            }
+        }
+    }
+
+
+    private suspend fun newSellChecking(data: ArrayList<TxData>) {
+        //data.reverse()
+        for (i in data) {
+            if ((topTxSale.find {actor -> i == actor } == null)) {
+                topTxSale.add(0, i)
+                withContext(Dispatchers.Main){
+                    callNot(i)
+                }
+                indexSale++
+                if (indexSale >= 11) {
+                    topTxSale.removeAt(10)
+                    indexSale--
+                }
+                withContext(Dispatchers.Main){
+                    broadcastTxs(topTx, topTxBuy, topTxSale)
+                }
+            }
+        }
+    }
+
+
+
+
+    // checking the filtered price
+    private fun checkPriceValue() {
         val sharedPreferences: SharedPreferences = getSharedPreferences("Filter", Context.MODE_PRIVATE)
         val remember = sharedPreferences.getBoolean("value", false)
         filterPrice = if(remember){
@@ -67,8 +195,12 @@ class TxListService : Service() {
         Log.d("Price Value = ", filterPrice.toString())
     }
 
+
+
+
+
     private fun apiData(): ArrayList<TxData> {
-        apiClient.getTxs().enqueue(object : Callback<TxApiResponse> {
+        buyTxn.getTxs().enqueue(object : Callback<TxApiResponse> {
             override fun onResponse(call: Call<TxApiResponse>, response: Response<TxApiResponse>) {
 
                 if(response.body()?.status == "1"){
@@ -87,11 +219,11 @@ class TxListService : Service() {
     }
 
 
-    private fun bigTx(){
+   /* private fun bigTx(){
         try {
             GlobalScope.launch(Dispatchers.IO) {
                 while (true) {
-                    setValue()
+                    checkPriceValue()
                     val data: ArrayList<TxData> = apiData()
                     for (i in data) {
                         val price = async { getPrice(i) }
@@ -103,8 +235,8 @@ class TxListService : Service() {
                                 topTx.removeAt(10)
                                 index--
                             }
-                            //This is for Sales checking
-                            if(i.cntAddress == i.addressFrom){
+                            //This is for Sells checking
+                            if(address == i.addressFrom){
                                 topTxSale.add(0, i)
                                 indexSale++
                                 if (indexSale >= 11) {
@@ -113,7 +245,7 @@ class TxListService : Service() {
                                 }
                             }
                             //This is for Buys checking
-                            if(i.cntAddress == i.addressTO){
+                            if(address == i.addressTo){
                                 topTxBuy.add(0, i)
                                 indexBuy++
                                 if (indexBuy >= 11) {
@@ -129,7 +261,7 @@ class TxListService : Service() {
 //                        }
                         }
                     }
-                    Log.d("Services ", "Tx data = " + data.size + " Big data = " + topTx.size)
+                    Log.d("Services ", "Tx data = " + data.size + " Big data = " + topTx.size + " Sell data = " + topTxSale.size + " Buy data = " + topTxBuy.size)
                     delay(2000)
                 }
             }
@@ -137,7 +269,7 @@ class TxListService : Service() {
             Log.d("Services ", "No internet")
         }
 
-    }
+    }*/
 
     private fun broadcastTxs(txs: ArrayList<TxData>, txBuy: ArrayList<TxData>, txSale: ArrayList<TxData>){
         mainHandler.post{
@@ -187,7 +319,6 @@ class TxListService : Service() {
     private fun callNot(data: TxData){
         createNotificationChannel()
 
-
         val intent: Intent
         val pendingIntent: PendingIntent
 
@@ -201,14 +332,15 @@ class TxListService : Service() {
                 this,
                 0,
                 intent,
-                PendingIntent.FLAG_CANCEL_CURRENT
+                PendingIntent.FLAG_UPDATE_CURRENT
             )
-        } else{
+        }
+        else{
             pendingIntent = PendingIntent.getActivity(
                 this,
                 0,
                 null,
-                PendingIntent.FLAG_CANCEL_CURRENT
+                PendingIntent.FLAG_UPDATE_CURRENT
             )
         }
 

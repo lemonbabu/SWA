@@ -38,7 +38,9 @@
     <string name="update">Update</string>
     <string name="all">All</string>
     <string name="buys">Buys</string>
-    <string name="sales">Sales</string>
+    <string name="sales">Sells</string>
     <string name="des">You can set your notification filter by change \n the price value. Default value = 300,000.0</string>
     <string name="def">Default</string>
+    <string name="buy_shib">Buy SHIB</string>
+    <string name="threshold">Threshold</string>
 </resources>

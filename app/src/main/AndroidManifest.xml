@@ -29,6 +29,7 @@
 
         <activity
             android:name="com.crytpo.shibwhalealerts.view.ui.MainActivity"
+            android:noHistory="true"
             android:exported="false">
         </activity>
     </application>

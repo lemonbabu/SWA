@@ -20,7 +20,7 @@ data class TxData(
     @SerializedName("contractAddress")
     var cntAddress: String = "",
     @SerializedName("to")
-    var addressTO: String = "",
+    var addressTo: String = "",
     @SerializedName("value")
     var value: String = "",
     @SerializedName("tokenName")
@@ -71,7 +71,7 @@ data class TxData(
         result = 31 * result + txBlockHas.hashCode()
         result = 31 * result + addressFrom.hashCode()
         result = 31 * result + cntAddress.hashCode()
-        result = 31 * result + addressTO.hashCode()
+        result = 31 * result + addressTo.hashCode()
         result = 31 * result + value.hashCode()
         result = 31 * result + tokenName.hashCode()
         result = 31 * result + tokenSymbol.hashCode()

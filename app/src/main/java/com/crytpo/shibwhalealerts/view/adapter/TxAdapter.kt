@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -40,8 +41,15 @@ class TxAdapter (private var onTxClickListener: OnTxClickListener): RecyclerView
         holder.tvTxHas.text = currentItem.txHas
         holder.tvTime.text = getDateTime(currentItem.time)
         holder.tvPrice.text = getPrice(currentItem.value)
-        holder.tvAddressFrom.text = currentItem.addressFrom
-        holder.tvAddressTO.text = currentItem.addressTO
+
+        if (currentItem.addressTo == "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce"){
+            holder.ivTxnImg.setImageResource(R.drawable.buys_icon)
+        } else{
+            holder.ivTxnImg.setImageResource(R.drawable.sells_icon)
+        }
+
+      //  holder.tvAddressFrom.text = currentItem.addressFrom
+      //  holder.tvAddressTO.text = currentItem.addressTO
 
         holder.itemView.setOnClickListener {
             onTxClickListener.onTxClickListener(txList[position])
@@ -57,8 +65,9 @@ class TxAdapter (private var onTxClickListener: OnTxClickListener): RecyclerView
         var tvTxHas: TextView = itemView.findViewById(R.id.tvTxHas)
         var tvPrice: TextView = itemView.findViewById(R.id.tvPrice)
         var tvTime: TextView = itemView.findViewById(R.id.tvTime)
-        var tvAddressFrom: TextView = itemView.findViewById(R.id.tvAddressFrom)
-        var tvAddressTO: TextView = itemView.findViewById(R.id.tvAddressTo)
+        var ivTxnImg: ImageView = itemView.findViewById(R.id.ivTxnImg)
+       // var tvAddressFrom: TextView = itemView.findViewById(R.id.tvAddressFrom)
+       // var tvAddressTO: TextView = itemView.findViewById(R.id.tvAddressTo)
     }
 
     private fun getPrice(s: String): String?{

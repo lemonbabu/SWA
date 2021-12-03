@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -45,7 +46,9 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
                 menuBar.visibility = View.GONE
             }
             else -> {
-                goDashboard("all")
+                goDashboard("buys")
+                tvBuys.setTextColor(Color.parseColor("#E84361"))
+                tvSales.setTextColor(Color.parseColor("#FFFFFF"))
             }
         }
 
@@ -71,7 +74,9 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
         })
 
         btnBack.setOnClickListener {
-            goDashboard("all")
+            goDashboard("buys")
+            tvBuys.setTextColor(Color.parseColor("#E84361"))
+            tvSales.setTextColor(Color.parseColor("#FFFFFF"))
         }
 
         btnSetting.setOnClickListener {
@@ -81,21 +86,22 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
             menuBar.visibility = View.GONE
         }
 
-        tvAll.setOnClickListener {
-            goDashboard("all")
+        btnBuyShib.setOnClickListener{
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.coinbase.com/join/woodfi_iq"))
+            startActivity(browserIntent)
         }
+
+
 
         tvBuys.setOnClickListener {
             goDashboard("buys")
-            tvAll.setTextColor(Color.parseColor("#000000"))
             tvBuys.setTextColor(Color.parseColor("#E84361"))
-            tvSales.setTextColor(Color.parseColor("#000000"))
+            tvSales.setTextColor(Color.parseColor("#FFFFFF"))
         }
 
         tvSales.setOnClickListener {
-            goDashboard("sales")
-            tvAll.setTextColor(Color.parseColor("#000000"))
-            tvBuys.setTextColor(Color.parseColor("#000000"))
+            goDashboard("sells")
+            tvBuys.setTextColor(Color.parseColor("#FFFFFF"))
             tvSales.setTextColor(Color.parseColor("#E84361"))
         }
 
@@ -116,7 +122,9 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
                 menuBar.visibility = View.GONE
             }
             else -> {
-                goDashboard("all")
+                goDashboard("buys")
+                tvBuys.setTextColor(Color.parseColor("#E84361"))
+                tvSales.setTextColor(Color.parseColor("#FFFFFF"))
             }
         }
     }
@@ -131,8 +139,11 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
 //    }
 
     override fun onBackPressed() {
+
         if(viewModel.back.value == true){
-            goDashboard("all")
+            goDashboard("buys")
+            tvBuys.setTextColor(Color.parseColor("#E84361"))
+            tvSales.setTextColor(Color.parseColor("#FFFFFF"))
             return
         }
         AlertDialog.Builder(this)
@@ -147,9 +158,8 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
     }
 
     private fun goDashboard(m: String){
-        tvAll.setTextColor(Color.parseColor("#E84361"))
-        tvBuys.setTextColor(Color.parseColor("#000000"))
-        tvSales.setTextColor(Color.parseColor("#000000"))
+        tvBuys.setTextColor(Color.parseColor("#E84361"))
+        tvSales.setTextColor(Color.parseColor("#FFFFFF"))
         val bundle = Bundle()
         bundle.putString("menu", m)
         val fragment = DashboardFragment()

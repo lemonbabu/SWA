@@ -43,7 +43,7 @@ class TxDataModel(var data: TxData) {
 
     fun getAddressTo():String{
         txt = "<font color=#3498DB>To: </font>"
-        return txt + data.addressTO
+        return txt + data.addressTo
     }
 
     fun getValue():String{

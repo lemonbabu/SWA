@@ -62,9 +62,10 @@
             android:background="@drawable/ic_white_primary_round"
             android:importantForAutofill="no"
             android:inputType="number"
+            android:hint="@string/threshold"
             android:padding="10dp"
             android:textAlignment="center"
-            android:textSize="15sp"
+            android:textSize="18sp"
             tools:ignore="LabelFor,SpeakableTextPresentCheck" />
 
         <LinearLayout

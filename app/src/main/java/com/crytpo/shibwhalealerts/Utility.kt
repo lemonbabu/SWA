@@ -2,6 +2,7 @@ package com.crytpo.shibwhalealerts
 
 import android.annotation.SuppressLint
 import android.view.View
+import com.crytpo.shibwhalealerts.service.model.data.NormalTxDataModel
 import com.crytpo.shibwhalealerts.service.model.data.TxData
 import java.text.SimpleDateFormat
 import java.util.*
@@ -62,4 +63,5 @@ fun getPrice(data: TxData):Double{
         0.00
     }
 }
+
 

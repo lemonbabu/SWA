@@ -44,7 +44,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), TxAdapter.OnTxC
                     Log.d("Live Data ", it.toString())
                 }
             }
-            "sales" -> {
+            "sells" -> {
                 //Service Live data by object
                 BigTx.txsSale.observe(viewLifecycleOwner){
                     data = it
