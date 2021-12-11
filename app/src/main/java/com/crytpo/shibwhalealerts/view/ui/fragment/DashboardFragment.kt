@@ -35,6 +35,8 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), TxAdapter.OnTxC
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDashboardBinding.bind(view)
 
+        model = ViewModelProvider(requireActivity())[DashboardViewModel::class.java]
+
         when (arguments?.getString("menu")) {
             "buys" -> {
                 //Service Live data by object
@@ -63,7 +65,7 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard), TxAdapter.OnTxC
         }
 
 
-        model = ViewModelProvider(requireActivity())[DashboardViewModel::class.java]
+
         binding.progressBar.visible()
         binding.rvTxList.gone()
         binding.rvTxList.layoutManager = GridLayoutManager(context,1)

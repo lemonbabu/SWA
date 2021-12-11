@@ -53,12 +53,15 @@ class TxListService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d("Services ", "Service Starting")
         getTxnData()
+
         return START_STICKY
     }
 
     override fun onDestroy() {
+        stopForeground(true)
+        stopSelf()
         super.onDestroy()
-        Log.d("Services ", "Service Destroy")
+        Log.d("Services  =", "Service Destroy")
     }
 
     // Crate multiple threading for different task by Coroutine
@@ -71,7 +74,7 @@ class TxListService : Service() {
                     try {
                         checkPriceValue()
                         bigSellTxn()
-                        delay(2000L)
+                        delay(4000L)
                     }catch (e: Exception){ }
                 }
             }
@@ -88,7 +91,7 @@ class TxListService : Service() {
                     try {
                         checkPriceValue()
                         bigBuyTxn()
-                        delay(2000L)
+                        delay(4000L)
                     }catch (e: Exception){ }
 
                 }
@@ -99,7 +102,6 @@ class TxListService : Service() {
 
 
     }
-
 
 
     // API calling and get data and call filtering data for sells
@@ -118,8 +120,8 @@ class TxListService : Service() {
         }catch(e: Exception){
             Log.d("Sells API=  ", e.toString())
         }
-
     }
+
 
     // API calling and get data and call filtering data for buys
     private suspend fun bigBuyTxn(){
@@ -183,7 +185,6 @@ class TxListService : Service() {
 
 
 
-
     // checking the filtered price
     private fun checkPriceValue() {
         val sharedPreferences: SharedPreferences = getSharedPreferences("Filter", Context.MODE_PRIVATE)
@@ -194,8 +195,6 @@ class TxListService : Service() {
             300000.00F
         Log.d("Price Value = ", filterPrice.toString())
     }
-
-
 
 
 
@@ -360,9 +359,11 @@ class TxListService : Service() {
 
 
        with(NotificationManagerCompat.from(this)) {
-           notify(0, builder.build())
+           //notify(0, builder.build())
+           startForeground(1, builder.build())
        }
     }
+
 
     private fun createNotificationChannel(){
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)

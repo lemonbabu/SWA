@@ -10,7 +10,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.crytpo.shibwhalealerts.R
-import com.crytpo.shibwhalealerts.service.TxListService
+import com.crytpo.shibwhalealerts.service.TxListService_old
 import com.crytpo.shibwhalealerts.view.ui.fragment.*
 import com.crytpo.shibwhalealerts.viewModel.FragmentCommunication
 import com.crytpo.shibwhalealerts.viewModel.MainModelView
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), FragmentCommunication {
         val nav = intent.getStringExtra("nav")
 
         // Services Calling for Txn data
-        Intent(this, TxListService::class.java).also{
+        Intent(this, TxListService_old::class.java).also{
             startService(it)
         }
         viewModel = ViewModelProvider(this)[MainModelView::class.java]

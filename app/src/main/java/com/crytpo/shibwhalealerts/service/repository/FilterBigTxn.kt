@@ -18,7 +18,7 @@ class FilterBigTxn {
     fun getBigBuyTxn(): ArrayList<TxData>{
         val bigData : ArrayList<TxData> = ArrayList()
         var index = 0
-        bigData.reverse()
+       // txnData.reverse()
         for (i in txnData) {
             val price = getPrice(i)
             if (price >= filterPrice && (bigData.find {actor -> i == actor } == null) && i.addressTo == "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce") {
@@ -39,7 +39,7 @@ class FilterBigTxn {
     fun getBigSellTxn(): ArrayList<TxData>{
         val bigData : ArrayList<TxData> = ArrayList()
         var index = 0
-        bigData.reverse()
+       // txnData.reverse()
         for (i in txnData) {
             val price = getPrice(i)
             if (price >= filterPrice && (bigData.find {actor -> i == actor } == null) && i.cntAddress == "0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce") {
